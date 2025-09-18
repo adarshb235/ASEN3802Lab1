@@ -40,8 +40,10 @@ predictions.case3A = predicted_a_case3;
 P = struct2table(predictions);
 writetable(P, "Predictions.csv");
 
-auxiliaryGraphs(centerLoad, centerLVDT, centerF0, centerF1, centerF2, centerF3D, offCenterLoad, offCenterLVDT, offCenterF0, offCenterF1, offCenterF2, offCenterF3D, symmLoad, symmLVDT, symmF0, symmF1, symmF2, symmF3D)
+%auxiliaryGraphs(centerLoad, centerLVDT, centerF0, centerF1, centerF2, centerF3D, offCenterLoad, offCenterLVDT, offCenterF0, offCenterF1, offCenterF2, offCenterF3D, symmLoad, symmLVDT, symmF0, symmF1, symmF2, symmF3D)
 %saveFigures();
+
+[matlabPred] = part3Model(centerLoad, centerLVDT);
 
 function [R_squared_values, normR_values] = graph(centerLoad, centerLVDT, centerF0, centerF1, centerF2, centerF3D, offCenterLoad, offCenterLVDT, offCenterF0, offCenterF1, offCenterF2, offCenterF3D, symmLoad, symmLVDT, symmF0, symmF1, symmF2, symmF3D)
     
@@ -699,4 +701,26 @@ function saveFigures()
         % Save as PDF
         exportgraphics(gcf, filename_pdf);
     end
+end
+
+function [matlabPred] = part3Model(centerLoad, centerLVDT)
+
+% using metric for this to match ANSYS work
+
+P = 222.4;
+L = 4;
+M = P * L / 4;
+E = 69 * 10^9;
+I = 5.9457 * 4.16231426 * 10^-7;
+sig = M .* 0.125 ./ I;
+A = 0.00064516 * pi * ((3/16)^2 - (1/8)^2);
+F_3D = sig * A;
+
+v = P * L.^3 ./ (48 * E * I);
+
+matlabPred = struct();
+matlabPred.deflection = v;
+matlabPred.internalFroce = F_3D;
+
+
 end
