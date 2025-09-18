@@ -720,7 +720,7 @@ function [matlabPred] = part3Model(centerLoad, centerLVDT)
 
     matlabPred = struct();
     matlabPred.deflection = v;
-    matlabPred.internalFroce = F_3D;
+    matlabPared.internalForce = F_3D;
 
 
 end
