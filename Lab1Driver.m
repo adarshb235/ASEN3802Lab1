@@ -705,22 +705,22 @@ end
 
 function [matlabPred] = part3Model(centerLoad, centerLVDT)
 
-% using metric for this to match ANSYS work
+    % using metric for this to match ANSYS work
 
-P = 222.4;
-L = 4;
-M = P * L / 4;
-E = 69 * 10^9;
-I = 5.9457 * 4.16231426 * 10^-7;
-sig = M .* 0.125 ./ I;
-A = 0.00064516 * pi * ((3/16)^2 - (1/8)^2);
-F_3D = sig * A;
+    P = 222.4;
+    L = 4;
+    M = P * L / 4;
+    E = 69 * 10^9;
+    I = 5.9457 * 4.16231426 * 10^-7;
+    sig = M .* 0.125 ./ I;
+    A = 0.00064516 * pi * ((3/16)^2 - (1/8)^2);
+    F_3D = sig * A;
 
-v = P * L.^3 ./ (48 * E * I);
+    v = P * L.^3 ./ (48 * E * I);
 
-matlabPred = struct();
-matlabPred.deflection = v;
-matlabPred.internalFroce = F_3D;
+    matlabPred = struct();
+    matlabPred.deflection = v;
+    matlabPred.internalFroce = F_3D;
 
 
 end
